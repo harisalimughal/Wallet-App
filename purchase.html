@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Wallet - Purchase Simulation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <!-- Harry Wallet Logo -->
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <!-- Logo with Bootstrap spacing -->
+                <div class="bg-primary rounded p-2 me-2">
+                    <span class="text-white fw-bold fs-4">H</span>
+                </div>
+                <span class="fw-bold">Harry Wallet</span>
+            </a>
+   
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Purchase</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="logoutBtn">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Dark/Light Mode Toggle Button -->
+            <button class="btn btn-outline-secondary ml-auto" id="themeToggle">🌙 </button>
+                              
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1>Purchase Simulation</h1>
+        <div class="alert alert-info" role="alert">
+            Current Balance: ₹<span id="currentBalance"></span>
+        </div>
+
+        <div class="row" id="productList">
+            <!-- Products will be dynamically added here -->
+        </div>
+    </div>
+
+    
+    <script>
+        // Function to enable dark mode
+        function enableDarkMode() {
+            document.body.classList.replace('bg-light', 'bg-dark');
+            document.body.classList.add('text-white');
+            
+            document.getElementById('themeToggle').textContent = '☀️';
+
+            document.querySelectorAll('.card').forEach(card => {
+            card.classList.add('bg-dark', 'text-white');
+        });
+        }
+
+        // Function to disable dark mode (i.e., enable light mode)
+        function disableDarkMode() {
+            document.body.classList.replace('bg-dark', 'bg-light');
+            document.body.classList.remove('text-white');
+            localStorage.setItem('theme', 'light');
+            document.getElementById('themeToggle').textContent = '🌙';
+
+            // Revert cards background and text color in light mode
+            document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('bg-dark', 'text-white');
+            card.classList.add('bg-white', 'text-dark');
+        });
+        }
+
+        // Theme toggle button click event
+        document.getElementById('themeToggle').addEventListener('click', function () {
+            if (document.body.classList.contains('bg-dark')) {
+                disableDarkMode();
+            } else {
+                enableDarkMode();
+            }
+        });
+
+        // Load theme from localStorage on page load
+        (function () {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                enableDarkMode();
+            }
+        })();
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="purchase.js"></script>
+</body>
+</html>
